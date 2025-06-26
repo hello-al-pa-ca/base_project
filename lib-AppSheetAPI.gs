@@ -141,9 +141,9 @@ class APIRequest {
         throw new Error(`API Error: Received status code ${responseCode}. Response: ${responseText}`);
       }
       
-      // レスポンスが空の場合でも成功として扱うことがあるため、空文字列チェックは削除
-      if (responseText === "") {
-        return "Success (No Content)";
+      // ★ v1.2 修正点: 応答が空の場合は、文字列ではなく空の配列を返す
+      if (responseText === "" || responseText === "Success (No Content)") {
+        return [];
       }
 
       // JSONとしてパースを試みる
